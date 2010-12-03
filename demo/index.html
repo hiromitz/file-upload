@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Demo - Inline Edit Plugin for jQuery</title>
+	<style>
+		body {
+			font: 13px/1.6 helvetica,arial,freesans,clean,sans-serif;
+			color: #0D0D0D;
+			position: relative;
+			margin: 10px 0 30px;
+		}
+		#container {
+			margin: 10px auto;
+			width: 700px;
+		}
+		.message {
+			background: #E6EFC2;
+			border-bottom: 2px solid #C6D880;
+			color: #264409;
+			padding: .7em;
+			position: fixed; top: 0; right: 0; left: 0;
+			text-align: center;
+		}
+	</style>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+	<script src="../src/jquery.fileUpload.js"></script>
+	<script>
+		var onSubmit = function() {
+			$('.message').text('Uploading...').hide().slideDown();
+		},onComplete = function(d) {
+			
+			for(var p in d) {
+				$('.result').append(p + ' : ' + d[p]).append('<br>');
+			}
+			
+			$('.message').text('Complete');
+			setTimeout(function() {
+				$('.message').slideUp();
+			}, 2000);
+		}
+	</script>
+</head>
+<body>
+	<div id="container">
+        <h1>Demo - File upload plugin for jQuery</h1>
+		<p>File upload by ajax. plugin for jQuery.</p>
+		<h2>Single file</h2>
+		<div class="fileupload" rel="form-name"></div>
+		<script>
+			$('.fileupload').fileUpload({
+				url: 'post.php',
+				submit: onSubmit,
+				complete: onComplete
+			});
+		</script>
+		<div class="result"></div>
+	</div>
+	<div class="message" style="display: none;"></div>
+</body>
+</html>
